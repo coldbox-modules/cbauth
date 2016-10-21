@@ -9,17 +9,17 @@ component singleton {
     property name="requestStorage" inject="RequestStorage@cbstorages";
     property name="userServiceClass" inject="coldbox:setting:userServiceClass@cbauth";
 
-    function logout() {
+    public void function logout() {
         sessionStorage.removeVar( USER_ID_KEY );
         requestStorage.removeVar( USER_KEY );
     }
 
-    function login( required user ) {
+    public void function login( required user ) {
         sessionStorage.setVar( USER_ID_KEY, user.getId() );
         requestStorage.setVar( USER_KEY, user );
     }
 
-    function authenticate( required string username, required string password ) {
+    public boolean function authenticate( required string username, required string password ) {
         var args = {
             username = username,
             password = password
@@ -44,24 +44,20 @@ component singleton {
         return true;
     }
 
-    function isLoggedIn() {
+    public boolean function isLoggedIn() {
         return sessionStorage.exists( USER_ID_KEY );
     }
 
-    function check() {
+    public boolean function check() {
         return isLoggedIn();
     }
 
-    function guest() {
+    public boolean function guest() {
         return ! isLoggedIn();
     }
 
-    function getUser() {
+    public any function getUser() {
         if ( ! requestStorage.exists( USER_KEY ) ) {
-            if ( ! isLoggedIn() ) {
-                throw( "No user is currently logged in.", "NoUserLoggedIn" );
-            }
-
             var user = getUserService().retrieveUserById( getUserId() );
             requestStorage.setVar( USER_KEY, user );
         }
@@ -69,15 +65,19 @@ component singleton {
         return requestStorage.getVar( USER_KEY );
     }
 
-    function user() {
+    public any function user() {
         return getUser();
     }
 
-    function getUserId() {
+    public any function getUserId() {
+        if ( ! isLoggedIn() ) {
+            throw( "No user is currently logged in.", "NoUserLoggedIn" );
+        }
+
         return sessionStorage.getVar( USER_ID_KEY );
     }
 
-    private function getUserService() {
+    private any function getUserService() {
         if ( ! structKeyExists( variables, "userService" ) ) {
             if ( userServiceClass == "" ) {
                 throw( "No [userServiceClass] provided.  Please set in `config/ColdBox.cfc` under `moduleSettings.cbauth.userServiceClass`.", "IncompleteConfiguration" );
