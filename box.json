@@ -1,0 +1,43 @@
+{
+    "name":"cbauthentication",
+    "version":"1.0.0",
+    "author":[
+        "Eric Peterson",
+        "Mike Burt"
+    ],
+    "repository":{
+        "type":"git",
+        "URL":"https://github.com/octanner/cbauthentication"
+    },
+    "slug":"cbauthentication",
+    "shortDescription":"Helpers for authentication in ColdBox",
+    "type":"module",
+    "keywords":[
+        "authentication",
+        "sessions"
+    ],
+    "private":false,
+    "license":[
+        {
+            "type":"MIT",
+            "URL":"https://raw.githubusercontent.com/octanner/cbauthentication/master/LICENSE"
+        }
+    ],
+    "dependencies":{
+        
+    },
+    "devDependencies":{
+        "testbox":"^2.3.0+00044"
+    },
+    "installPaths":{
+        "testbox":"testbox"
+    },
+    "scripts":{
+        
+    },
+    "ignore":[
+        "**/.*",
+        "test",
+        "tests"
+    ]
+}
