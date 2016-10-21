@@ -1,5 +1,5 @@
 {
-    "name":"cbauthentication",
+    "name":"cbauth",
     "version":"1.0.0",
     "author":[
         "Eric Peterson",
@@ -7,9 +7,9 @@
     ],
     "repository":{
         "type":"git",
-        "URL":"https://github.com/octanner/cbauthentication"
+        "URL":"https://github.com/octanner/cbauth"
     },
-    "slug":"cbauthentication",
+    "slug":"cbauth",
     "shortDescription":"Helpers for authentication in ColdBox",
     "type":"modules",
     "keywords":[
@@ -20,7 +20,7 @@
     "license":[
         {
             "type":"MIT",
-            "URL":"https://raw.githubusercontent.com/octanner/cbauthentication/master/LICENSE"
+            "URL":"https://raw.githubusercontent.com/octanner/cbauth/master/LICENSE"
         }
     ],
     "dependencies":{

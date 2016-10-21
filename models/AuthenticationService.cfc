@@ -1,13 +1,13 @@
 component singleton {
 
-    variables.USER_ID_KEY = "cbauthentication__userId";
-    variables.USER_KEY = "cbauthentication__user";
+    variables.USER_ID_KEY = "cbauth__userId";
+    variables.USER_KEY = "cbauth__user";
 
     property name="wirebox" inject="wirebox";
     property name="interceptorService" inject="coldbox:interceptorService";
     property name="sessionStorage" inject="SessionStorage@cbstorages";
     property name="requestStorage" inject="RequestStorage@cbstorages";
-    property name="userServiceClass" inject="coldbox:setting:userServiceClass@cbauthentication";
+    property name="userServiceClass" inject="coldbox:setting:userServiceClass@cbauth";
 
     function logout() {
         sessionStorage.removeVar( USER_ID_KEY );
@@ -80,7 +80,7 @@ component singleton {
     private function getUserService() {
         if ( ! structKeyExists( variables, "userService" ) ) {
             if ( userServiceClass == "" ) {
-                throw( "No [userServiceClass] provided.  Please set in `config/ColdBox.cfc` under `moduleSettings.cbauthentication.userServiceClass`.", "IncompleteConfiguration" );
+                throw( "No [userServiceClass] provided.  Please set in `config/ColdBox.cfc` under `moduleSettings.cbauth.userServiceClass`.", "IncompleteConfiguration" );
             }
 
             variables.userService = wirebox.getInstance( userServiceClass );

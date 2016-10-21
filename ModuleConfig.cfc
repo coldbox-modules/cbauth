@@ -1,6 +1,6 @@
 component {
 
-    this.title = "cbauthentication";
+    this.title = "cbauth";
 
     function configure() {
         settings = {
