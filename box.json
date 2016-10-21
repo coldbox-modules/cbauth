@@ -11,7 +11,7 @@
     },
     "slug":"cbauthentication",
     "shortDescription":"Helpers for authentication in ColdBox",
-    "type":"module",
+    "type":"modules",
     "keywords":[
         "authentication",
         "sessions"
