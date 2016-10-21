@@ -90,6 +90,16 @@ component extends="testbox.system.BaseSpec" {
                     } );
                 } );
 
+                describe( "guest", function() {
+                    it( "returns the opposite of isLoggedIn and check", function() {
+                        sessionStorageMock.$( "exists", true );
+                        expect( auth.guest() ).toBeFalse();
+
+                        sessionStorageMock.$( "exists", false );
+                        expect( auth.guest() ).toBeTrue();
+                    } );
+                } );
+
                 describe( "getUser", function() {
                     it( "returns the currently logged in user component", function() {
                         requestStorageMock.$( "exists", false );
@@ -172,6 +182,18 @@ component extends="testbox.system.BaseSpec" {
                     expect( requestStorageMock.$once( "setVar" ) ).toBeTrue();
                     expect( requestStorageMock.$callLog().setVar[1][2] ) // first time called, second argument
                         .toBe( userMock, "User object should have been passed to `setVar`." );
+                } );
+            } );
+
+            describe( "logging out", function() {
+                it( "logs a user out, regardless of if there was any user logged in", function() {
+                    sessionStorageMock.$( "removeVar" );
+                    requestStorageMock.$( "removeVar" );
+
+                    auth.logout();
+
+                    expect( sessionStorageMock.$once( "removeVar" ) ).toBeTrue();
+                    expect( requestStorageMock.$once( "removeVar" ) ).toBeTrue();
                 } );
             } );
 

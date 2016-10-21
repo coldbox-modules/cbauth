@@ -8,6 +8,11 @@ component singleton {
     property name="requestStorage" inject="RequestStorage@cbstorages";
     property name="userServiceClass" inject="coldbox:setting:userServiceClass@cbauthentication";
 
+    function logout() {
+        sessionStorage.removeVar( USER_ID_KEY );
+        requestStorage.removeVar( USER_KEY );
+    }
+
     function login( required user ) {
         sessionStorage.setVar( USER_ID_KEY, user.getId() );
         requestStorage.setVar( USER_KEY, user );
@@ -30,6 +35,10 @@ component singleton {
 
     function check() {
         return isLoggedIn();
+    }
+
+    function guest() {
+        return ! isLoggedIn();
     }
 
     function getUser() {
