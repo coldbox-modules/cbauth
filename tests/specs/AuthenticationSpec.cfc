@@ -4,6 +4,7 @@ component extends="testbox.system.BaseSpec" {
         describe( "authentication service", function() {
             beforeEach( function() {
                 setUpWireBox();
+                setUpInterceptorService();
                 setUpUser();
                 setUpSessionStorage();
                 setUpRequestStorage();
@@ -11,6 +12,7 @@ component extends="testbox.system.BaseSpec" {
 
                 variables.auth = getMockBox().createMock( "models.AuthenticationService" );
                 auth.$property( propertyName = "wirebox", mock = wireboxMock );
+                auth.$property( propertyName = "interceptorService", mock = interceptorServiceMock );
                 auth.$property( propertyName = "sessionStorage", mock = sessionStorageMock );
                 auth.$property( propertyName = "requestStorage", mock = requestStorageMock );
             } );
@@ -251,8 +253,24 @@ component extends="testbox.system.BaseSpec" {
                     } );
                 } );
 
-                xdescribe( "pre and post interception points", function() {
-                    
+                describe( "pre and post interception points", function() {
+                    it( "announces a preAuthentication interception point", function() {
+                        var validUsername = "john.doe@example.com";
+                        var correctPassword = "pass1234";
+
+                        userServiceMock.$( "isValidCredentials", true );
+
+                        auth.authenticate( validUsername, correctPassword );
+
+                        var processStateCallLog = interceptorServiceMock.$callLog().processState;
+
+                        expect( processStateCallLog )
+                            .toHaveLength( 2, "Two events should have been announced" );
+                        expect( processStateCallLog[1][1] )
+                            .toBe( "preAuthentication", "[preAuthentication] should have been announced." );
+                        expect( processStateCallLog[2][1] )
+                            .toBe( "postAuthentication", "[postAuthentication] should have been announced." );
+                    } );
                 } );
 
                 it( "returns true if the user was successfully authenticated", function() {
@@ -284,6 +302,11 @@ component extends="testbox.system.BaseSpec" {
 
     function setUpWireBox() {
         variables.wireboxMock = getMockBox().createStub();
+    }
+
+    function setUpInterceptorService() {
+        variables.interceptorServiceMock = getMockBox().createStub();
+        interceptorServiceMock.$( "processState" );
     }
 
     function setUpUser() {

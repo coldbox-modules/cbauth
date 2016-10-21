@@ -4,6 +4,7 @@ component singleton {
     variables.USER_KEY = "cbauthentication__user";
 
     property name="wirebox" inject="wirebox";
+    property name="interceptorService" inject="coldbox:interceptorService";
     property name="sessionStorage" inject="SessionStorage@cbstorages";
     property name="requestStorage" inject="RequestStorage@cbstorages";
     property name="userServiceClass" inject="coldbox:setting:userServiceClass@cbauthentication";
@@ -19,11 +20,25 @@ component singleton {
     }
 
     function authenticate( required string username, required string password ) {
-        if ( NOT getUserService().isValidCredentials( username, password ) ) {
+        var args = {
+            username = username,
+            password = password
+        };
+
+        interceptorService.processState( "preAuthentication", args );
+
+        if ( NOT getUserService().isValidCredentials( args.username, args.password ) ) {
             throw( "Incorrect Credentials Entered", "InvalidCredentials" );
         }
         
-        var user = getUserService().retrieveUserByUsername( username );
+        var user = getUserService().retrieveUserByUsername( args.username );
+
+        interceptorService.processState( "postAuthentication", {
+            user = user,
+            sessionStorage = sessionStorage,
+            requestStorage = requestStorage
+        } );
+
         login( user );
 
         return true;
