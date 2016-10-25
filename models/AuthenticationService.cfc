@@ -58,8 +58,8 @@ component singleton {
 
     public any function getUser() {
         if ( ! requestStorage.exists( USER_KEY ) ) {
-            var user = getUserService().retrieveUserById( getUserId() );
-            requestStorage.setVar( USER_KEY, user );
+            var userBean = getUserService().retrieveUserById( getUserId() );
+            requestStorage.setVar( USER_KEY, userBean );
         }
 
         return requestStorage.getVar( USER_KEY );
