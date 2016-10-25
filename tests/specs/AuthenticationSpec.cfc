@@ -189,13 +189,13 @@ component extends="testbox.system.BaseSpec" {
 
             describe( "logging out", function() {
                 it( "logs a user out, regardless of if there was any user logged in", function() {
-                    sessionStorageMock.$( "removeVar" );
-                    requestStorageMock.$( "removeVar" );
+                    sessionStorageMock.$( "deleteVar", true );
+                    requestStorageMock.$( "deleteVar", true );
 
                     auth.logout();
 
-                    expect( sessionStorageMock.$once( "removeVar" ) ).toBeTrue();
-                    expect( requestStorageMock.$once( "removeVar" ) ).toBeTrue();
+                    expect( sessionStorageMock.$once( "deleteVar" ) ).toBeTrue();
+                    expect( requestStorageMock.$once( "deleteVar" ) ).toBeTrue();
                 } );
             } );
 
