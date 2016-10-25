@@ -16,7 +16,7 @@ component {
         var helpers = controller.getSetting( "applicationHelper" );
         arrayAppend(
             helpers,
-            "#moduleMapping#/helpers/AuthenticationServiceHelper.cfm"
+            "#moduleMapping#/helpers/AuthenticationServiceHelpers.cfm"
         );
         controller.setSetting( "applicationHelper", helpers );
     }
@@ -25,7 +25,7 @@ component {
         controller.setSetting(
             "applicationHelper",
             arrayFilter( controller.getSetting( "applicationHelper" ), function( helper ) {
-                return helper != "#moduleMapping#/helpers/AuthenticationServiceHelper.cfm"; 
+                return helper != "#moduleMapping#/helpers/AuthenticationServiceHelpers.cfm"; 
             } )
         );
     }
