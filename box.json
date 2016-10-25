@@ -1,7 +1,7 @@
 {
     "name":"cbauth",
-    "version":"1.0.1",
-    "location":"octanner/cbauth#1.0.1",
+    "version":"1.0.2",
+    "location":"octanner/cbauth#v1.0.2",
     "author":[
         "Eric Peterson",
         "Mike Burt"
@@ -35,7 +35,7 @@
         "cbstorages":"modules/cbstorages"
     },
     "scripts":{
-        "postVersion":"package set location='octanner/cbauth#`package version`'",
+        "postVersion":"package set location='octanner/cbauth#v`package version`'",
         "postPublish":"!git push && !git push --tags"
     },
     "ignore":[
