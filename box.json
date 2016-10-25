@@ -35,7 +35,8 @@
         "cbstorages":"modules/cbstorages"
     },
     "scripts":{
-        
+        "postVersion":"package set location='octanner/cbauth#`package version`'",
+        "postPublish":"!git push && !git push --tags"
     },
     "ignore":[
         "**/.*",
