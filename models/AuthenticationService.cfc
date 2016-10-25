@@ -10,8 +10,8 @@ component singleton {
     property name="userServiceClass" inject="coldbox:setting:userServiceClass@cbauth";
 
     public void function logout() {
-        sessionStorage.removeVar( USER_ID_KEY );
-        requestStorage.removeVar( USER_KEY );
+        sessionStorage.deleteVar( USER_ID_KEY );
+        requestStorage.deleteVar( USER_KEY );
     }
 
     public void function login( required user ) {
