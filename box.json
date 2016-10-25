@@ -1,7 +1,7 @@
 {
     "name":"cbauth",
-    "version":"1.0.0",
-    "location":"octanner/cbauth#1.0.0",
+    "version":"1.0.1",
+    "location":"octanner/cbauth#1.0.1",
     "author":[
         "Eric Peterson",
         "Mike Burt"
