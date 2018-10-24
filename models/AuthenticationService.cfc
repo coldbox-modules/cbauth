@@ -1,13 +1,13 @@
 component singleton {
 
-    variables.USER_ID_KEY = "cbauth__userId";
-    variables.USER_KEY = "cbauth__user";
-
     property name="wirebox" inject="wirebox";
     property name="interceptorService" inject="coldbox:interceptorService";
     property name="sessionStorage" inject="SessionStorage@cbstorages";
     property name="requestStorage" inject="RequestStorage@cbstorages";
     property name="userServiceClass" inject="coldbox:setting:userServiceClass@cbauth";
+    
+    variables.USER_ID_KEY = "cbauth__userId";
+    variables.USER_KEY = "cbauth__user";
 
     public void function logout() {
         sessionStorage.deleteVar( USER_ID_KEY );
