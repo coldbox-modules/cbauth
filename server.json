@@ -1,4 +1,7 @@
 {
+    "app":{
+        "cfengine":"adobe@11"
+    },
     "web":{
         "http":{
             "port":"61200"
