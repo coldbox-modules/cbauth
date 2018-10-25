@@ -232,10 +232,10 @@ component extends="testbox.system.BaseSpec" {
                         var retrieveUserByUsernameCallLog = userServiceMock.$callLog().retrieveUserByUsername;
 
                         expect( isValidCredentialsCallLog[1] )
-                            .toBe( [ validUsername, correctPassword ] );
+                            .toBe( { "1" = validUsername, "2" = correctPassword } );
 
                         expect( retrieveUserByUsernameCallLog[1] )
-                            .toBe( [ validUsername ] );
+                            .toBe( { "1" = validUsername } );
                     } );
 
                     it( "throws an InvalidCredentials exception and does not call retrieveUserByUsername if the credentials are invalid", function() {
