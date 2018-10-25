@@ -8,7 +8,7 @@
     ],
     "repository":{
         "type":"git",
-        "URL":"https://github.com/octanner/cbauth"
+        "URL":"https://github.com/elpete/cbauth"
     },
     "slug":"cbauth",
     "shortDescription":"Helpers for authentication in ColdBox",
@@ -21,7 +21,7 @@
     "license":[
         {
             "type":"MIT",
-            "URL":"https://raw.githubusercontent.com/octanner/cbauth/master/LICENSE"
+            "URL":"https://raw.githubusercontent.com/elpete/cbauth/master/LICENSE"
         }
     ],
     "dependencies":{
