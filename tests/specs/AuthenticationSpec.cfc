@@ -44,7 +44,7 @@ component extends="testbox.system.BaseSpec" {
                     wireboxMock.$( "getInstance" ).$args( mockedPath ).$results( userServiceMock );
 
                     var actual = auth.getUserServicePublic();
-                    
+
                     expect( actual ).toBe( userServiceMock );
                 } );
 
@@ -55,7 +55,7 @@ component extends="testbox.system.BaseSpec" {
 
                     auth.getUserServicePublic();
                     auth.getUserServicePublic();
-                    
+
                     expect( wireboxMock.$once( "getInstance" ) )
                         .toBeTrue( "[getInstance] should only have been called once." );
                 } );
@@ -124,7 +124,7 @@ component extends="testbox.system.BaseSpec" {
                     } );
 
                     it( "returns the user from the request if it exists", function() {
-                        requestStorageMock.$( "exists", true );    
+                        requestStorageMock.$( "exists", true );
                         requestStorageMock.$( "getVar", userMock );
 
                         auth.getUser();
