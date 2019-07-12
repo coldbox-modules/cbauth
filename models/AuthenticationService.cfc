@@ -2,8 +2,8 @@ component singleton {
 
     property name="wirebox" inject="wirebox";
     property name="interceptorService" inject="coldbox:interceptorService";
-    property name="sessionStorage" inject="CacheStorage@cbstorages";
-    property name="requestStorage" inject="RequestStorage@cbstorages";
+    property name="sessionStorage" inject="SessionStorage@cbauth";
+    property name="requestStorage" inject="RequestStorage@cbauth";
     property name="userServiceClass" inject="coldbox:setting:userServiceClass@cbauth";
     
     variables.USER_ID_KEY = "cbauth__userId";
