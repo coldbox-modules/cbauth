@@ -31,8 +31,8 @@
         "testbox":"^2.3.0+00044"
     },
     "installPaths":{
-        "testbox":"testbox",
-        "cbstorages":"modules/cbstorages"
+        "testbox":"testbox/",
+        "cbstorages":"modules/cbstorages/"
     },
     "scripts":{
         "postVersion":"package set location='elpete/cbauth#v`package version`'"

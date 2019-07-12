@@ -2,10 +2,6 @@ language: java
 sudo: required
 jdk:
   - oraclejdk8
-cache:
-  directories:
-    - "$HOME/.CommandBox/artifacts/"
-    - "$HOME/.CommandBox/server/"
 env:
   matrix:
     - ENGINE=adobe@2018

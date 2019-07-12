@@ -16,6 +16,12 @@ Specify a `userServiceClass` in your `config/ColdBox.cfc` inside `moduleSettings
 
 Additionally, the user component returned by the `retrieve` methods needs to respond to `getId()`.
 
+You can also specify a `sessionStorage` and a `requestStorage` WireBox mapping.
+These will be used inside `AuthenticationService`.  By default, these are
+`SessionStorage@cbstorages` and `RequestStorage@cbstorages` respectively.
+Interfaces are provided in the `models` folder for reference when building
+your own.  (Your storage classes do not need to formally implement the interface.)
+
 ## Usage
 
 You can inject the `authenticationService` using WireBox.
