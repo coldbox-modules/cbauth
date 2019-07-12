@@ -1,3 +1,11 @@
+# v3.0.0
+## 12 Jul 2019 — 20:14:17 UTC
+
+### BREAKING
+
++ __Storages:__ Allow customizing of storages ([b97a8ad](https://github.com/elpete/cbauth/commit/b97a8adfd90fdace338a516d383750152dbe3d61))
+
+
 # v2.0.0
 ## 25 Oct 2018 — 06:56:50 UTC
 
