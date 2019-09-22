@@ -1,3 +1,11 @@
+# v3.0.2
+## 22 Sep 2019 — 19:08:45 UTC
+
+### other
+
++ __\*:__ docs: Fixed Coldbox 4.3 docs link ([d4252ce](https://github.com/elpete/cbauth/commit/d4252cee40997d2e2747082791be0498072374eb))
+
+
 # v3.0.1
 ## 22 Sep 2019 — 18:58:14 UTC
 
