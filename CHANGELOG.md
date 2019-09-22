@@ -1,3 +1,11 @@
+# v3.0.1
+## 22 Sep 2019 — 18:58:14 UTC
+
+### chore
+
++ __build:__ Use openjdk8 on Travis ([0ba288b](https://github.com/elpete/cbauth/commit/0ba288b7c8e89320eb33b9dfc08d3e1237a6a4c3))
+
+
 # v3.0.0
 ## 12 Jul 2019 — 20:14:17 UTC
 
