@@ -4,7 +4,7 @@ Wrapper for authentication for ColdBox.
 
 ## Installation
 
-Requires ColdBox 4.3 for [module parent settings](https://coldbox.ortusbooks.com/content/full/introduction/whats_new_with_430.html).
+Requires ColdBox 4.3 for [module parent settings](https://github.com/ortus-docs/coldbox-docs/blob/v4.x/intro/introduction/whats-new-with-4.3.0.md).
 
 `box install cbauth`
 
