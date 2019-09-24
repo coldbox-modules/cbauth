@@ -1,14 +1,14 @@
 {
     "name":"cbauth",
     "version":"3.0.2",
-    "location":"elpete/cbauth#v3.0.2",
+    "location":"coldbox-modules/cbauth#v3.0.2",
     "author":[
         "Eric Peterson",
         "Mike Burt"
     ],
     "repository":{
         "type":"git",
-        "URL":"https://github.com/elpete/cbauth"
+        "URL":"https://github.com/coldbox-modules/cbauth"
     },
     "slug":"cbauth",
     "shortDescription":"Helpers for authentication in ColdBox",
@@ -21,7 +21,7 @@
     "license":[
         {
             "type":"MIT",
-            "URL":"https://raw.githubusercontent.com/elpete/cbauth/master/LICENSE"
+            "URL":"https://raw.githubusercontent.com/coldbox-modules/cbauth/master/LICENSE"
         }
     ],
     "dependencies":{
@@ -35,7 +35,7 @@
         "cbstorages":"modules/cbstorages/"
     },
     "scripts":{
-        "postVersion":"package set location='elpete/cbauth#v`package version`'"
+        "postVersion":"package set location='coldbox-modules/cbauth#v`package version`'"
     },
     "ignore":[
         "**/.*",
