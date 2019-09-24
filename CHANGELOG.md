@@ -1,3 +1,12 @@
+# v3.0.3
+## 24 Sep 2019 — 16:40:21 UTC
+
+### other
+
++ __\*:__ chore: Transfer cbauth to coldbox-modules namespace
+ ([2616896](https://github.com/coldbox-modules/cbauth/commit/26168963563d25accb007fb274c95416938b6baf))
+
+
 # v3.0.2
 ## 22 Sep 2019 — 19:08:45 UTC
 
