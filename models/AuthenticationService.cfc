@@ -5,18 +5,18 @@ component singleton {
     property name="sessionStorage" inject="SessionStorage@cbauth";
     property name="requestStorage" inject="RequestStorage@cbauth";
     property name="userServiceClass" inject="coldbox:setting:userServiceClass@cbauth";
-    
+
     variables.USER_ID_KEY = "cbauth__userId";
     variables.USER_KEY = "cbauth__user";
 
     public void function logout() {
-        sessionStorage.deleteVar( USER_ID_KEY );
-        requestStorage.deleteVar( USER_KEY );
+        sessionStorage.delete( USER_ID_KEY );
+        requestStorage.delete( USER_KEY );
     }
 
     public void function login( required user ) {
-        sessionStorage.setVar( USER_ID_KEY, user.getId() );
-        requestStorage.setVar( USER_KEY, user );
+        sessionStorage.set( USER_ID_KEY, user.getId() );
+        requestStorage.set( USER_KEY, user );
     }
 
     public boolean function authenticate( required string username, required string password ) {
@@ -30,7 +30,7 @@ component singleton {
         if ( NOT getUserService().isValidCredentials( args.username, args.password ) ) {
             throw( "Incorrect Credentials Entered", "InvalidCredentials" );
         }
-        
+
         var user = getUserService().retrieveUserByUsername( args.username );
 
         interceptorService.processState( "postAuthentication", {
@@ -59,10 +59,10 @@ component singleton {
     public any function getUser() {
         if ( ! requestStorage.exists( USER_KEY ) ) {
             var userBean = getUserService().retrieveUserById( getUserId() );
-            requestStorage.setVar( USER_KEY, userBean );
+            requestStorage.set( USER_KEY, userBean );
         }
 
-        return requestStorage.getVar( USER_KEY );
+        return requestStorage.get( USER_KEY );
     }
 
     public any function user() {
@@ -74,7 +74,7 @@ component singleton {
             throw( "No user is currently logged in.", "NoUserLoggedIn" );
         }
 
-        return sessionStorage.getVar( USER_ID_KEY );
+        return sessionStorage.get( USER_ID_KEY );
     }
 
     private any function getUserService() {

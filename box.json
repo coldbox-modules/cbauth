@@ -25,10 +25,10 @@
         }
     ],
     "dependencies":{
-        "cbstorages":"^1.2.0"
+        "cbstorages":"^2.0.0"
     },
     "devDependencies":{
-        "testbox":"^2.3.0+00044"
+        "testbox":"^3.0.0"
     },
     "installPaths":{
         "testbox":"testbox/",

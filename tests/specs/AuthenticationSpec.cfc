@@ -23,6 +23,7 @@ component extends="testbox.system.BaseSpec" {
                 structDelete( variables, "requestStorageMock" );
                 structDelete( variables, "sessionStorageMock" );
                 structDelete( variables, "userMock" );
+                session = {};
             } );
 
             describe( "instantiating the user service", function() {
@@ -105,9 +106,9 @@ component extends="testbox.system.BaseSpec" {
                 describe( "getUser", function() {
                     it( "returns the currently logged in user component", function() {
                         requestStorageMock.$( "exists", false );
-                        requestStorageMock.$( "getVar", userMock );
+                        requestStorageMock.$( "get", userMock );
                         sessionStorageMock.$( "exists", true );
-                        sessionStorageMock.$( "getVar", 1 );
+                        sessionStorageMock.$( "get", 1 );
                         userServiceMock.$( "retrieveUserById" ).$args( 1 ).$results( userMock );
 
                         var actual = auth.getUser();
@@ -116,6 +117,7 @@ component extends="testbox.system.BaseSpec" {
                     } );
 
                     it( "throws an exception when trying to get the user without being logged in", function() {
+                        requestStorageMock.$( "exists", false );
                         sessionStorageMock.$( "exists", false );
 
                         expect( function() {
@@ -125,7 +127,7 @@ component extends="testbox.system.BaseSpec" {
 
                     it( "returns the user from the request if it exists", function() {
                         requestStorageMock.$( "exists", true );
-                        requestStorageMock.$( "getVar", userMock );
+                        requestStorageMock.$( "get", userMock );
 
                         auth.getUser();
 
@@ -134,17 +136,19 @@ component extends="testbox.system.BaseSpec" {
                         expect( sessionStorageCallLog )
                             .notToHaveKey( "exists", "[exists] should not be called on the SessionStorage" );
                         expect( sessionStorageCallLog )
-                            .notToHaveKey( "getVar", "[getVar] should not be called on the SessionStorage" );
+                            .notToHaveKey( "get", "[get] should not be called on the SessionStorage" );
                     } );
 
                     it( "caches the user from in request scope", function() {
+                        requestStorageMock.$( "exists", false );
                         sessionStorageMock.$( "exists", true );
-                        sessionStorageMock.$( "getVar", 1 );
+                        sessionStorageMock.$( "get", 1 );
+                        requestStorageMock.$( "get", 1 );
                         userServiceMock.$( "retrieveUserById" ).$args( 1 ).$results( userMock );
 
                         auth.getUser();
 
-                        expect( requestStorageMock.$once( "setVar" ) ).toBeTrue();
+                        expect( requestStorageMock.$once( "set" ) ).toBeTrue();
                         requestStorageMock.$( "exists", true );
 
                         auth.getUser();
@@ -153,17 +157,17 @@ component extends="testbox.system.BaseSpec" {
 
                         expect( sessionStorageCallLog.exists )
                             .toHaveLength( 1, "[exists] should only have been called once." );
-                        expect( sessionStorageCallLog.getVar )
-                            .toHaveLength( 1, "[getVar] should only have been called once." );
+                        expect( sessionStorageCallLog.get )
+                            .toHaveLength( 1, "[get] should only have been called once." );
                     } );
                 } );
 
                 describe( "user", function() {
                     it( "is an alias for getUser", function() {
                         requestStorageMock.$( "exists", false );
-                        requestStorageMock.$( "getVar", userMock );
+                        requestStorageMock.$( "get", userMock );
                         sessionStorageMock.$( "exists", true );
-                        sessionStorageMock.$( "getVar", 1 );
+                        sessionStorageMock.$( "get", 1 );
                         userServiceMock.$( "retrieveUserById" ).$args( 1 ).$results( userMock );
 
                         expect( auth.getUser() ).toBe( auth.user() );
@@ -174,28 +178,28 @@ component extends="testbox.system.BaseSpec" {
             describe( "logging in", function() {
                 it( "stores a user id in the session storage", function() {
                     auth.login( userMock );
-                    expect( sessionStorageMock.$once( "setVar" ) ).toBeTrue();
-                    expect( sessionStorageMock.$callLog().setVar[1][2] ) // first time called, second argument
-                        .toBe( userId, "User id of #userId# should have been passed to `setVar`." );
+                    expect( sessionStorageMock.$once( "set" ) ).toBeTrue();
+                    expect( sessionStorageMock.$callLog().set[1][2] ) // first time called, second argument
+                        .toBe( userId, "User id of #userId# should have been passed to `set`." );
                 } );
 
                 it( "sets the logged in user object in the request scope to save on multiple db requests", function() {
                     auth.login( userMock );
-                    expect( requestStorageMock.$once( "setVar" ) ).toBeTrue();
-                    expect( requestStorageMock.$callLog().setVar[1][2] ) // first time called, second argument
-                        .toBe( userMock, "User object should have been passed to `setVar`." );
+                    expect( requestStorageMock.$once( "set" ) ).toBeTrue();
+                    expect( requestStorageMock.$callLog().set[1][2] ) // first time called, second argument
+                        .toBe( userMock, "User object should have been passed to `set`." );
                 } );
             } );
 
             describe( "logging out", function() {
                 it( "logs a user out, regardless of if there was any user logged in", function() {
-                    sessionStorageMock.$( "deleteVar", true );
-                    requestStorageMock.$( "deleteVar", true );
+                    sessionStorageMock.$( "delete", true );
+                    requestStorageMock.$( "delete", true );
 
                     auth.logout();
 
-                    expect( sessionStorageMock.$once( "deleteVar" ) ).toBeTrue();
-                    expect( requestStorageMock.$once( "deleteVar" ) ).toBeTrue();
+                    expect( sessionStorageMock.$once( "delete" ) ).toBeTrue();
+                    expect( requestStorageMock.$once( "delete" ) ).toBeTrue();
                 } );
             } );
 
@@ -292,9 +296,9 @@ component extends="testbox.system.BaseSpec" {
 
                     auth.authenticate( validUsername, correctPassword );
 
-                    expect( sessionStorageMock.$once( "setVar" ) ).toBeTrue();
-                    expect( sessionStorageMock.$callLog().setVar[1][2] ) // first time called, second argument
-                        .toBe( userId, "User id of #userId# should have been passed to `setVar`." );
+                    expect( sessionStorageMock.$once( "set" ) ).toBeTrue();
+                    expect( sessionStorageMock.$callLog().set[1][2] ) // first time called, second argument
+                        .toBe( userId, "User id of #userId# should have been passed to `set`." );
                 } );
             } );
         } );
@@ -316,16 +320,13 @@ component extends="testbox.system.BaseSpec" {
     }
 
     function setUpSessionStorage() {
-        variables.sessionStorageMock = getMockBox()
-            .createMock( "modules.cbstorages.models.SessionStorage" );
-        sessionStorageMock.init();
-        sessionStorageMock.$( "setVar" );
+        variables.sessionStorageMock = getMockBox().createStub();
+        sessionStorageMock.$( "set" );
     }
 
     function setUpRequestStorage() {
-        variables.requestStorageMock = getMockBox().createMock( "modules.cbstorages.models.RequestStorage" );
-        requestStorageMock.init();
-        requestStorageMock.$( "setVar" );
+        variables.requestStorageMock = getMockBox().createStub();
+        requestStorageMock.$( "set" );
     }
 
     function setUpUserService() {
