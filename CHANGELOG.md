@@ -1,3 +1,11 @@
+# v4.0.0
+## 02 Oct 2019 — 05:29:36 UTC
+
+### BREAKING
+
++ __cbstorages:__ Upgrade cbstorages to 2.0.0 ([10b3156](https://github.com/coldbox-modules/cbauth/commit/10b3156b3861c97ae7f87c53377db00226abe5e9))
+
+
 # v3.0.3
 ## 24 Sep 2019 — 16:40:21 UTC
 
