@@ -17,6 +17,13 @@ component singleton {
     public void function login( required user ) {
         sessionStorage.set( USER_ID_KEY, user.getId() );
         requestStorage.set( USER_KEY, user );
+        
+        interceptorService.processState( "postLogin", {
+            user = user,
+            sessionStorage = sessionStorage,
+            requestStorage = requestStorage
+        } );
+        
     }
 
     public boolean function authenticate( required string username, required string password ) {
