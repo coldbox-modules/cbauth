@@ -273,11 +273,12 @@ component extends="testbox.system.BaseSpec" {
                         expect( processStateCallLog[1][1] )
                             .toBe( "preAuthentication", "[preAuthentication] should have been announced." );
                         expect( processStateCallLog[2][1] )
-                            .toBe( "preLogin", "[preLogin] should have been announced." );
-                        expect( processStateCallLog[3][1] )
-                            .toBe( "postLogin", "[postLogin] should have been announced." );
-                        expect( processStateCallLog[4][1] )
                             .toBe( "postAuthentication", "[postAuthentication] should have been announced." );
+                        expect( processStateCallLog[3][1] )
+                            .toBe( "preLogin", "[preLogin] should have been announced." );
+                        expect( processStateCallLog[4][1] )
+                            .toBe( "postLogin", "[postLogin] should have been announced." );
+                        
                     } );
                 } );
 
