@@ -15,6 +15,11 @@ component singleton {
     }
 
     public void function login( required user ) {
+        
+        interceptorService.processState( "preLogin", {
+            user = user
+        } );
+        
         sessionStorage.set( USER_ID_KEY, user.getId() );
         requestStorage.set( USER_KEY, user );
         
