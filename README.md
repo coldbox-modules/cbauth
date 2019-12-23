@@ -138,6 +138,8 @@ If there is no logged in user, it throws a `NoUserLoggedIn` exception.
 
 cbauth announces several custom interception points.  You can use these interception points to change request data or add additional values to session or request scopes.  The `preAuthentication` and `postAuthentication` events fire during the standard `authenticate()` method call with a username and password.  The `preLogin` and `postLogin` events fire during the `login()` method call.
 
+Note: the `preLogin` and `postLogin` interception points will be called during the course of `authenticate()`.  The order of the calls then are `preAuthentication` -> `preLogin` -> `postLogin` -> `postAuthentication`.
+
 ### `preAuthentication`
 
 interceptData
