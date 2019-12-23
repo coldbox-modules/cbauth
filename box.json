@@ -1,7 +1,7 @@
 {
     "name":"cbauth",
-    "version":"4.0.0",
-    "location":"coldbox-modules/cbauth#v4.0.0",
+    "version":"4.1.0",
+    "location":"coldbox-modules/cbauth#v4.1.0",
     "author":[
         "Eric Peterson",
         "Mike Burt"

@@ -1,3 +1,11 @@
+# v4.1.0
+## 23 Dec 2019 — 18:06:36 UTC
+
+### feat
+
++ __Login:__ Add new `preLogin` and `postLogin` interception points ([495d516](https://github.com/coldbox-modules/cbauth/commit/495d516b09e126ab92fac1423958ce8adaeb3be7))
+
+
 # v4.0.0
 ## 02 Oct 2019 — 05:29:36 UTC
 
