@@ -10,33 +10,44 @@ component singleton {
     variables.USER_KEY = "cbauth__user";
 
     public void function logout() {
-        sessionStorage.delete( USER_ID_KEY );
-        requestStorage.delete( USER_KEY );
+        variables.sessionStorage.delete( variables.USER_ID_KEY );
+        variables.requestStorage.delete( variables.USER_KEY );
     }
 
     public void function login( required user ) {
-        sessionStorage.set( USER_ID_KEY, user.getId() );
-        requestStorage.set( USER_KEY, user );
+        variables.interceptorService.processState( "preLogin", {
+            user = arguments.user
+        } );
+        
+        variables.sessionStorage.set( variables.USER_ID_KEY, arguments.user.getId() );
+        variables.requestStorage.set( variables.USER_KEY, arguments.user );
+        
+        variables.interceptorService.processState( "postLogin", {
+            user = arguments.user,
+            sessionStorage = variables.sessionStorage,
+            requestStorage = variables.requestStorage
+        } );
     }
 
     public boolean function authenticate( required string username, required string password ) {
-        var args = {
-            username = username,
-            password = password
-        };
+        variables.interceptorService.processState( "preAuthentication", {
+            "username" = arguments.username,
+            "password" = arguments.password
+        } );
 
-        interceptorService.processState( "preAuthentication", args );
-
-        if ( NOT getUserService().isValidCredentials( args.username, args.password ) ) {
-            throw( "Incorrect Credentials Entered", "InvalidCredentials" );
+        if ( ! getUserService().isValidCredentials( arguments.username, arguments.password ) ) {
+            throw(
+                type = "InvalidCredentials",
+                message = "Incorrect Credentials Entered"
+            );
         }
 
-        var user = getUserService().retrieveUserByUsername( args.username );
+        var user = getUserService().retrieveUserByUsername( arguments.username );
 
-        interceptorService.processState( "postAuthentication", {
+        variables.interceptorService.processState( "postAuthentication", {
             user = user,
-            sessionStorage = sessionStorage,
-            requestStorage = requestStorage
+            sessionStorage = variables.sessionStorage,
+            requestStorage = variables.requestStorage
         } );
 
         login( user );
@@ -45,7 +56,7 @@ component singleton {
     }
 
     public boolean function isLoggedIn() {
-        return sessionStorage.exists( USER_ID_KEY );
+        return variables.sessionStorage.exists( variables.USER_ID_KEY );
     }
 
     public boolean function check() {
@@ -57,12 +68,12 @@ component singleton {
     }
 
     public any function getUser() {
-        if ( ! requestStorage.exists( USER_KEY ) ) {
+        if ( ! variables.requestStorage.exists( variables.USER_KEY ) ) {
             var userBean = getUserService().retrieveUserById( getUserId() );
-            requestStorage.set( USER_KEY, userBean );
+            variables.requestStorage.set( variables.USER_KEY, userBean );
         }
 
-        return requestStorage.get( USER_KEY );
+        return variables.requestStorage.get( variables.USER_KEY );
     }
 
     public any function user() {
@@ -71,19 +82,25 @@ component singleton {
 
     public any function getUserId() {
         if ( ! isLoggedIn() ) {
-            throw( "No user is currently logged in.", "NoUserLoggedIn" );
+            throw(
+                type = "NoUserLoggedIn",
+                message = "No user is currently logged in."
+            );
         }
 
-        return sessionStorage.get( USER_ID_KEY );
+        return variables.sessionStorage.get( variables.USER_ID_KEY );
     }
 
     private any function getUserService() {
         if ( ! structKeyExists( variables, "userService" ) ) {
-            if ( userServiceClass == "" ) {
-                throw( "No [userServiceClass] provided.  Please set in `config/ColdBox.cfc` under `moduleSettings.cbauth.userServiceClass`.", "IncompleteConfiguration" );
+            if ( variables.userServiceClass == "" ) {
+                throw(
+                    type = "IncompleteConfiguration",
+                    message = "No [userServiceClass] provided.  Please set in `config/ColdBox.cfc` under `moduleSettings.cbauth.userServiceClass`."
+                );
             }
 
-            variables.userService = wirebox.getInstance( userServiceClass );
+            variables.userService = variables.wirebox.getInstance( variables.userServiceClass );
         }
 
         return variables.userService;

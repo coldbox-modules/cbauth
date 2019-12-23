@@ -136,7 +136,9 @@ If there is no logged in user, it throws a `NoUserLoggedIn` exception.
 
 ## Interception Points — (preAuthentication & postAuthentication)
 
-cbauth announces two custom interception points — preAuthentication and postAuthentication.  You can use these interception points to change request data or add additional values to session or request scopes.
+cbauth announces several custom interception points.  You can use these interception points to change request data or add additional values to session or request scopes.  The `preAuthentication` and `postAuthentication` events fire during the standard `authenticate()` method call with a username and password.  The `preLogin` and `postLogin` events fire during the `login()` method call.
+
+Note: the `preLogin` and `postLogin` interception points will be called during the course of `authenticate()`.  The order of the calls then are `preAuthentication` -> `preLogin` -> `postLogin` -> `postAuthentication`.
 
 ### `preAuthentication`
 
@@ -161,3 +163,25 @@ interceptData
 | requestStorage | The requestStorage object to store additional values if needed. |
 
 This is the prime time to store additional values based on the user returned.
+
+### `preLogin`
+
+interceptData
+
+| name | description |
+| --- | --- |
+| user | The user component to be logged in. |
+
+
+### `postLogin`
+
+interceptData
+
+| name | description |
+| --- | --- |
+| user | The user component to be logged in. |
+| sessionStorage | The sessionStorage object to store additional values if needed. |
+| requestStorage | The requestStorage object to store additional values if needed. |
+
+
+This is a good opportunity to store additional data if your application logged the user in manually without authenticating via a username/password like a "remember me" system.
