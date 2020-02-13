@@ -1,3 +1,11 @@
+# v4.1.1
+## 13 Feb 2020 — 17:36:32 UTC
+
+### other
+
++ __\*:__ chore: Use forgeboxStorage ([7ac6965](https://github.com/coldbox-modules/cbauth/commit/7ac6965013b3a08c027d85f4b0700e3d4ac75930))
+
+
 # v4.1.0
 ## 23 Dec 2019 — 18:06:36 UTC
 
