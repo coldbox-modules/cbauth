@@ -1,3 +1,2 @@
-node_modules
-testbox
-modules
+/testbox/
+/modules/
