@@ -1,3 +1,12 @@
+# v4.1.2
+## 18 Feb 2020 — 17:27:02 UTC
+
+### other
+
++ __\*:__ Adjust gitignore file for better directory matching
+ ([a2d0ba3](https://github.com/coldbox-modules/cbauth/commit/a2d0ba3e52a85410f307ccf0e8acf480082930a5))
+
+
 # v4.1.1
 ## 13 Feb 2020 — 17:36:32 UTC
 
