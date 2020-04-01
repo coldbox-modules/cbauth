@@ -10,7 +10,7 @@ component extends="testbox.system.BaseSpec" {
                 setUpRequestStorage();
                 setUpUserService();
 
-                variables.auth = getMockBox().createMock( "models.AuthenticationService" );
+                variables.auth = createMock( "models.AuthenticationService" );
                 auth.$property( propertyName = "wirebox", mock = wireboxMock );
                 auth.$property( propertyName = "interceptorService", mock = interceptorServiceMock );
                 auth.$property( propertyName = "sessionStorage", mock = sessionStorageMock );
@@ -192,9 +192,23 @@ component extends="testbox.system.BaseSpec" {
             } );
 
             describe( "logging out", function() {
-                it( "logs a user out, regardless of if there was any user logged in", function() {
-                    sessionStorageMock.$( "delete", true );
+                it( "logs a user out, when you are not logged in", function() {
+                    sessionStorageMock
+                        .$( "delete", true )
+                        .$( "exists", false );
                     requestStorageMock.$( "delete", true );
+
+                    auth.logout();
+
+                    expect( sessionStorageMock.$once( "delete" ) ).toBeTrue();
+                    expect( requestStorageMock.$once( "delete" ) ).toBeTrue();
+                } );
+                it( "logs a user out, when you are logged in", function() {
+                    sessionStorageMock
+                        .$( "delete", true )
+                        .$( "exists", true );
+                    requestStorageMock.$( "delete", true );
+                    auth.$( "getUser", userMock );
 
                     auth.logout();
 
@@ -282,15 +296,14 @@ component extends="testbox.system.BaseSpec" {
                     } );
                 } );
 
-                it( "returns true if the user was successfully authenticated", function() {
+                it( "returns the user if the user was successfully authenticated", function() {
                     var validUsername = "john.doe@example.com";
                     var correctPassword = "pass1234";
 
                     userServiceMock.$( "isValidCredentials", true );
 
-                    var result = auth.authenticate( validUsername, correctPassword );
-
-                    expect( result ).toBeTrue();
+                    var user = auth.authenticate( validUsername, correctPassword );
+                    expect( user ).toBeComponent();
                 } );
 
                 it( "logs in a user after being successfully authenticated", function() {
