@@ -2,8 +2,14 @@ language: java
 sudo: required
 jdk:
   - openjdk8
+cache:
+  directories:
+    - "$HOME/.CommandBox/artifacts/"
+    - "$HOME/.CommandBox/server/"
 env:
-  matrix:
+  global:
+    - MODULE_ID=cbauth
+  jobs:
     - ENGINE=adobe@2018
     - ENGINE=adobe@2016
     - ENGINE=lucee@5
@@ -18,8 +24,25 @@ before_script:
 script:
   - box testbox run runner='http://127.0.0.1:8500/tests/runner.cfm'
 after_success:
-  - box install commandbox-semantic-release
+  - box install commandbox-docbox,commandbox-semantic-release
   - box config set endpoints.forgebox.APIToken=${FORGEBOX_TOKEN}
   - box semantic-release
+before_deploy:
+  - # Set Current Version
+  - TARGET_VERSION=`cat $TRAVIS_BUILD_DIR/box.json | jq '.version' -r`
+  - box run-script generateAPIDocs
+deploy:
+  provider: s3
+  on:
+    branch: master
+    condition: $ENGINE = adobe@2018
+  skip_cleanup: true
+  #AWS Credentials need to be set in Travis
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_ACCESS_SECRET
+  bucket: "apidocs.ortussolutions.com"
+  local_dir: $TRAVIS_BUILD_DIR/.tmp/apidocs
+  upload_dir: coldbox-modules/$MODULE_ID/$TARGET_VERSION
+  acl: public_read
 notifications:
   email: false

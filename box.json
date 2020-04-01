@@ -34,10 +34,15 @@
         "testbox":"testbox/",
         "cbstorages":"modules/cbstorages/"
     },
-    "scripts":{},
+    "scripts":{
+        "generateAPIDocs":"rm .tmp --recurse --force && docbox generate mapping=cbauth excludes=tests|ModuleConfig strategy-outputDir=.tmp/apidocs strategy-projectTitle=cbauth",
+        "commitAPIDocs":"run-script generateAPIDocs && !git add docs/apidocs/* && !git commit -m 'Updated API Docs'"
+    },
     "ignore":[
         "**/.*",
         "test",
-        "tests"
+        "tests",
+        "docs/**/*.*",
+        "server.json"
     ]
 }
