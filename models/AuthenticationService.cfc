@@ -32,9 +32,10 @@ component singleton {
 	 */
 	public void function logout(){
 		// Annouce pre logout with or without user
-		variables.interceptorService.processState( "preLogout", { 
-			user : isLoggedIn() ? getUser() : javaCast( "null", "" )
-		} );
+		variables.interceptorService.processState(
+			"preLogout",
+			{ user : isLoggedIn() ? getUser() : javacast( "null", "" ) }
+		);
 
 		// cleanup
 		variables.sessionStorage.delete( variables.USER_ID_KEY );
@@ -131,7 +132,7 @@ component singleton {
 	 * Get the currently logged in user object
 	 *
 	 * @throws NoUserLoggedIn : If the user is not logged in
-	 * 
+	 *
 	 * @return User
 	 */
 	public any function getUser(){
