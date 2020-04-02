@@ -2,6 +2,11 @@
 
 Authentication services for ColdBox Applications.
 
+## Requirements 
+
+- Lucee 5+
+- Adobe ColdFusion 2016+
+
 ## Installation
 
 Requires ColdBox 4.3 for [module parent settings](https://github.com/ortus-docs/coldbox-docs/blob/v4.x/intro/introduction/whats-new-with-4.3.0.md).
