@@ -23,18 +23,18 @@ component singleton {
 	/**
 	 * Constructor
 	 */
-	function init(){
+	function init() {
 		return this;
 	}
 
 	/**
 	 * Logout a user
 	 */
-	public void function logout(){
+	public void function logout() {
 		// Annouce pre logout with or without user
 		variables.interceptorService.processState(
 			"preLogout",
-			{ user : isLoggedIn() ? getUser() : javacast( "null", "" ) }
+			{ user: isLoggedIn() ? getUser() : javacast( "null", "" ) }
 		);
 
 		// cleanup
@@ -52,8 +52,8 @@ component singleton {
 	 *
 	 * @return The same user object so you can do functional goodness
 	 */
-	public any function login( required user ){
-		variables.interceptorService.processState( "preLogin", { user : arguments.user } );
+	public any function login( required user ) {
+		variables.interceptorService.processState( "preLogin", { user: arguments.user } );
 
 		variables.sessionStorage.set( variables.USER_ID_KEY, arguments.user.getId() );
 		variables.requestStorage.set( variables.USER_KEY, arguments.user );
@@ -61,9 +61,9 @@ component singleton {
 		variables.interceptorService.processState(
 			"postLogin",
 			{
-				user           : arguments.user,
-				sessionStorage : variables.sessionStorage,
-				requestStorage : variables.requestStorage
+				user          : arguments.user,
+				sessionStorage: variables.sessionStorage,
+				requestStorage: variables.requestStorage
 			}
 		);
 
@@ -80,12 +80,12 @@ component singleton {
 	 *
 	 * @return User : The logged in user object
 	 */
-	public any function authenticate( required string username, required string password ){
+	public any function authenticate( required string username, required string password ) {
 		variables.interceptorService.processState(
 			"preAuthentication",
 			{
-				"username" : arguments.username,
-				"password" : arguments.password
+				"username": arguments.username,
+				"password": arguments.password
 			}
 		);
 
@@ -98,9 +98,9 @@ component singleton {
 		variables.interceptorService.processState(
 			"postAuthentication",
 			{
-				user           : user,
-				sessionStorage : variables.sessionStorage,
-				requestStorage : variables.requestStorage
+				user          : user,
+				sessionStorage: variables.sessionStorage,
+				requestStorage: variables.requestStorage
 			}
 		);
 
@@ -110,21 +110,21 @@ component singleton {
 	/**
 	 * Verify if the user is logged in
 	 */
-	public boolean function isLoggedIn(){
+	public boolean function isLoggedIn() {
 		return variables.sessionStorage.exists( variables.USER_ID_KEY );
 	}
 
 	/**
 	 * Alias to the isLoggedIn function
 	 */
-	public boolean function check(){
+	public boolean function check() {
 		return isLoggedIn();
 	}
 
 	/**
 	 * Verify if you are NOT logged in, but a guest in the site
 	 */
-	public boolean function guest(){
+	public boolean function guest() {
 		return !isLoggedIn();
 	}
 
@@ -135,7 +135,7 @@ component singleton {
 	 *
 	 * @return User
 	 */
-	public any function getUser(){
+	public any function getUser() {
 		if ( !variables.requestStorage.exists( variables.USER_KEY ) ) {
 			var userBean = getUserService().retrieveUserById( getUserId() );
 			variables.requestStorage.set( variables.USER_KEY, userBean );
@@ -147,7 +147,7 @@ component singleton {
 	/**
 	 * Alias to `getUser()`
 	 */
-	public any function user(){
+	public any function user() {
 		return getUser();
 	}
 
@@ -158,7 +158,7 @@ component singleton {
 	 *
 	 * @return The user Id
 	 */
-	public any function getUserId(){
+	public any function getUserId() {
 		if ( !isLoggedIn() ) {
 			throw( type = "NoUserLoggedIn", message = "No user is currently logged in." );
 		}
@@ -171,7 +171,7 @@ component singleton {
 	 *
 	 * @throws IncompleteConfiguration
 	 */
-	private any function getUserService(){
+	private any function getUserService() {
 		if ( !structKeyExists( variables, "userService" ) ) {
 			if ( variables.userServiceClass == "" ) {
 				throw(

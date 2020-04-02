@@ -1,8 +1,8 @@
 component extends="testbox.system.BaseSpec" {
 
-	function run(){
-		describe( "authentication service", function(){
-			beforeEach( function(){
+	function run() {
+		describe( "authentication service", function() {
+			beforeEach( function() {
 				setUpWireBox();
 				setUpInterceptorService();
 				setUpUser();
@@ -17,7 +17,7 @@ component extends="testbox.system.BaseSpec" {
 				auth.$property( propertyName = "requestStorage", mock = requestStorageMock );
 			} );
 
-			afterEach( function(){
+			afterEach( function() {
 				structDelete( variables, "auth" );
 				structDelete( variables, "userServiceMock" );
 				structDelete( variables, "requestStorageMock" );
@@ -26,8 +26,8 @@ component extends="testbox.system.BaseSpec" {
 				session = {};
 			} );
 
-			describe( "instantiating the user service", function(){
-				beforeEach( function(){
+			describe( "instantiating the user service", function() {
+				beforeEach( function() {
 					makePublic(
 						auth,
 						"getUserService",
@@ -35,15 +35,15 @@ component extends="testbox.system.BaseSpec" {
 					);
 				} );
 
-				it( "fails if no userServiceClass was specified in the settings", function(){
+				it( "fails if no userServiceClass was specified in the settings", function() {
 					auth.$property( propertyName = "userServiceClass", mock = "" );
 
-					expect( function(){
+					expect( function() {
 						auth.getUserServicePublic();
 					} ).toThrow( "IncompleteConfiguration" );
 				} );
 
-				it( "calls wirebox with the userServiceClass and returns it", function(){
+				it( "calls wirebox with the userServiceClass and returns it", function() {
 					var mockedPath = "my.mocked.path";
 					auth.$property( propertyName = "userServiceClass", mock = mockedPath );
 					wireboxMock
@@ -56,7 +56,7 @@ component extends="testbox.system.BaseSpec" {
 					expect( actual ).toBe( userServiceMock );
 				} );
 
-				it( "caches the userService", function(){
+				it( "caches the userService", function() {
 					var mockedPath = "my.mocked.path";
 					auth.$property( propertyName = "userServiceClass", mock = mockedPath );
 					wireboxMock
@@ -73,8 +73,8 @@ component extends="testbox.system.BaseSpec" {
 				} );
 			} );
 
-			describe( "helper functions", function(){
-				beforeEach( function(){
+			describe( "helper functions", function() {
+				beforeEach( function() {
 					var mockedPath = "my.mocked.path";
 					auth.$property( propertyName = "userServiceClass", mock = mockedPath );
 					wireboxMock
@@ -83,22 +83,22 @@ component extends="testbox.system.BaseSpec" {
 						.$results( userServiceMock );
 				} );
 
-				describe( "isLoggedIn", function(){
-					it( "returns true if there is a logged in user", function(){
+				describe( "isLoggedIn", function() {
+					it( "returns true if there is a logged in user", function() {
 						sessionStorageMock.$( "exists", true );
 
 						expect( auth.isLoggedIn() ).toBeTrue();
 					} );
 
-					it( "returns false if there is not a logged in user", function(){
+					it( "returns false if there is not a logged in user", function() {
 						sessionStorageMock.$( "exists", false );
 
 						expect( auth.isLoggedIn() ).toBeFalse();
 					} );
 				} );
 
-				describe( "check", function(){
-					it( "is an alias for isLoggedIn", function(){
+				describe( "check", function() {
+					it( "is an alias for isLoggedIn", function() {
 						sessionStorageMock.$( "exists", true );
 						expect( auth.check() ).toBe( auth.isLoggedIn() );
 
@@ -107,8 +107,8 @@ component extends="testbox.system.BaseSpec" {
 					} );
 				} );
 
-				describe( "guest", function(){
-					it( "returns the opposite of isLoggedIn and check", function(){
+				describe( "guest", function() {
+					it( "returns the opposite of isLoggedIn and check", function() {
 						sessionStorageMock.$( "exists", true );
 						expect( auth.guest() ).toBeFalse();
 
@@ -117,8 +117,8 @@ component extends="testbox.system.BaseSpec" {
 					} );
 				} );
 
-				describe( "getUser", function(){
-					it( "returns the currently logged in user component", function(){
+				describe( "getUser", function() {
+					it( "returns the currently logged in user component", function() {
 						requestStorageMock.$( "exists", false );
 						requestStorageMock.$( "get", userMock );
 						sessionStorageMock.$( "exists", true );
@@ -133,16 +133,16 @@ component extends="testbox.system.BaseSpec" {
 						expect( actual ).toBe( userMock );
 					} );
 
-					it( "throws an exception when trying to get the user without being logged in", function(){
+					it( "throws an exception when trying to get the user without being logged in", function() {
 						requestStorageMock.$( "exists", false );
 						sessionStorageMock.$( "exists", false );
 
-						expect( function(){
+						expect( function() {
 							auth.getUser();
 						} ).toThrow( "NoUserLoggedIn" );
 					} );
 
-					it( "returns the user from the request if it exists", function(){
+					it( "returns the user from the request if it exists", function() {
 						requestStorageMock.$( "exists", true );
 						requestStorageMock.$( "get", userMock );
 
@@ -160,7 +160,7 @@ component extends="testbox.system.BaseSpec" {
 						);
 					} );
 
-					it( "caches the user from in request scope", function(){
+					it( "caches the user from in request scope", function() {
 						requestStorageMock.$( "exists", false );
 						sessionStorageMock.$( "exists", true );
 						sessionStorageMock.$( "get", 1 );
@@ -190,8 +190,8 @@ component extends="testbox.system.BaseSpec" {
 					} );
 				} );
 
-				describe( "user", function(){
-					it( "is an alias for getUser", function(){
+				describe( "user", function() {
+					it( "is an alias for getUser", function() {
 						requestStorageMock.$( "exists", false );
 						requestStorageMock.$( "get", userMock );
 						sessionStorageMock.$( "exists", true );
@@ -206,8 +206,8 @@ component extends="testbox.system.BaseSpec" {
 				} );
 			} );
 
-			describe( "logging in", function(){
-				it( "stores a user id in the session storage", function(){
+			describe( "logging in", function() {
+				it( "stores a user id in the session storage", function() {
 					auth.login( userMock );
 					expect( sessionStorageMock.$once( "set" ) ).toBeTrue();
 					expect( sessionStorageMock.$callLog().set[ 1 ][ 2 ] )
@@ -215,7 +215,7 @@ component extends="testbox.system.BaseSpec" {
 						.toBe( userId, "User id of #userId# should have been passed to `set`." );
 				} );
 
-				it( "sets the logged in user object in the request scope to save on multiple db requests", function(){
+				it( "sets the logged in user object in the request scope to save on multiple db requests", function() {
 					auth.login( userMock );
 					expect( requestStorageMock.$once( "set" ) ).toBeTrue();
 					expect( requestStorageMock.$callLog().set[ 1 ][ 2 ] )
@@ -224,8 +224,8 @@ component extends="testbox.system.BaseSpec" {
 				} );
 			} );
 
-			describe( "logging out", function(){
-				it( "logs a user out, when you are not logged in", function(){
+			describe( "logging out", function() {
+				it( "logs a user out, when you are not logged in", function() {
 					sessionStorageMock.$( "delete", true ).$( "exists", false );
 					requestStorageMock.$( "delete", true );
 
@@ -234,7 +234,7 @@ component extends="testbox.system.BaseSpec" {
 					expect( sessionStorageMock.$once( "delete" ) ).toBeTrue();
 					expect( requestStorageMock.$once( "delete" ) ).toBeTrue();
 				} );
-				it( "logs a user out, when you are logged in", function(){
+				it( "logs a user out, when you are logged in", function() {
 					sessionStorageMock.$( "delete", true ).$( "exists", true );
 					requestStorageMock.$( "delete", true );
 					auth.$( "getUser", userMock );
@@ -246,8 +246,8 @@ component extends="testbox.system.BaseSpec" {
 				} );
 			} );
 
-			describe( "authenticating users", function(){
-				beforeEach( function(){
+			describe( "authenticating users", function() {
+				beforeEach( function() {
 					auth.$property( propertyName = "userServiceClass", mock = "doesnt.matter" );
 					wireboxMock
 						.$( "getInstance" )
@@ -255,8 +255,8 @@ component extends="testbox.system.BaseSpec" {
 						.$results( userServiceMock );
 				} );
 
-				describe( "calling user-defined functions", function(){
-					it( "calls a user-defined function to validate correct credentials", function(){
+				describe( "calling user-defined functions", function() {
+					it( "calls a user-defined function to validate correct credentials", function() {
 						var validUsername   = "john.doe@example.com";
 						var correctPassword = "pass1234";
 
@@ -272,7 +272,7 @@ component extends="testbox.system.BaseSpec" {
 						);
 					} );
 
-					it( "calls the functions with the credentials", function(){
+					it( "calls the functions with the credentials", function() {
 						var validUsername   = "john.doe@example.com";
 						var correctPassword = "pass1234";
 
@@ -284,20 +284,20 @@ component extends="testbox.system.BaseSpec" {
 						var retrieveUserByUsernameCallLog = userServiceMock.$callLog().retrieveUserByUsername;
 
 						expect( isValidCredentialsCallLog[ 1 ] ).toBe( {
-							"1" : validUsername,
-							"2" : correctPassword
+							"1": validUsername,
+							"2": correctPassword
 						} );
 
-						expect( retrieveUserByUsernameCallLog[ 1 ] ).toBe( { "1" : validUsername } );
+						expect( retrieveUserByUsernameCallLog[ 1 ] ).toBe( { "1": validUsername } );
 					} );
 
-					it( "throws an InvalidCredentials exception and does not call retrieveUserByUsername if the credentials are invalid", function(){
+					it( "throws an InvalidCredentials exception and does not call retrieveUserByUsername if the credentials are invalid", function() {
 						var validUsername     = "john.doe@example.com";
 						var incorrectPassword = "h@ck3r4L!fe!";
 
 						userServiceMock.$( "isValidCredentials", false );
 
-						expect( function(){
+						expect( function() {
 							auth.authenticate( validUsername, incorrectPassword );
 						} ).toThrow( "InvalidCredentials" );
 
@@ -307,8 +307,8 @@ component extends="testbox.system.BaseSpec" {
 					} );
 				} );
 
-				describe( "pre and post interception points", function(){
-					it( "announces a preAuthentication interception point", function(){
+				describe( "pre and post interception points", function() {
+					it( "announces a preAuthentication interception point", function() {
 						var validUsername   = "john.doe@example.com";
 						var correctPassword = "pass1234";
 
@@ -338,7 +338,7 @@ component extends="testbox.system.BaseSpec" {
 					} );
 				} );
 
-				it( "returns the user if the user was successfully authenticated", function(){
+				it( "returns the user if the user was successfully authenticated", function() {
 					var validUsername   = "john.doe@example.com";
 					var correctPassword = "pass1234";
 
@@ -348,7 +348,7 @@ component extends="testbox.system.BaseSpec" {
 					expect( user ).toBeComponent();
 				} );
 
-				it( "logs in a user after being successfully authenticated", function(){
+				it( "logs in a user after being successfully authenticated", function() {
 					var validUsername   = "john.doe@example.com";
 					var correctPassword = "pass1234";
 
@@ -365,32 +365,32 @@ component extends="testbox.system.BaseSpec" {
 		} );
 	}
 
-	function setUpWireBox(){
+	function setUpWireBox() {
 		variables.wireboxMock = getMockBox().createStub();
 	}
 
-	function setUpInterceptorService(){
+	function setUpInterceptorService() {
 		variables.interceptorServiceMock = getMockBox().createStub();
 		interceptorServiceMock.$( "processState" );
 	}
 
-	function setUpUser(){
+	function setUpUser() {
 		variables.userMock = getMockBox().createStub();
 		variables.userId   = 1;
 		userMock.$( "getId", userId );
 	}
 
-	function setUpSessionStorage(){
+	function setUpSessionStorage() {
 		variables.sessionStorageMock = getMockBox().createStub();
 		sessionStorageMock.$( "set" );
 	}
 
-	function setUpRequestStorage(){
+	function setUpRequestStorage() {
 		variables.requestStorageMock = getMockBox().createStub();
 		requestStorageMock.$( "set" );
 	}
 
-	function setUpUserService(){
+	function setUpUserService() {
 		variables.userServiceMock = getMockBox().createStub();
 		userServiceMock.$( "retrieveUserByUsername", userMock );
 	}
