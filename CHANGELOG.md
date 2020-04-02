@@ -1,3 +1,11 @@
+# v5.0.0
+## 02 Apr 2020 — 22:10:08 UTC
+
+### BREAKING
+
++ __\*:__ feat: Added interception points and return user from authorize ([778cd73](https://github.com/coldbox-modules/cbauth/commit/778cd739e80a73d3efe772e0475b2ed9db9db088))
+
+
 # v4.1.2
 ## 18 Feb 2020 — 17:27:02 UTC
 

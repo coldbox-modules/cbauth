@@ -1,6 +1,6 @@
 {
     "name":"cbauth",
-    "version":"4.1.2",
+    "version":"5.0.0",
     "location":"forgeboxStorage",
     "author":[
         "Eric Peterson",
@@ -26,18 +26,20 @@
         }
     ],
     "dependencies":{
-        "cbstorages":"^2.0.0"
+        "cbstorages":"^2.0.0",
+        "coldbox":"stable"
     },
     "devDependencies":{
         "testbox":"^3.0.0"
     },
     "installPaths":{
         "testbox":"testbox/",
-        "cbstorages":"modules/cbstorages/"
+        "cbstorages":"modules/cbstorages/",
+        "coldbox":"coldbox/"
     },
     "scripts":{
-        "format": "cfformat run models/**/*.cfc,tests/specs/**/*.cfc --overwrite",
-        "format:check": "cfformat check models/**/*.cfc,tests/specs/**/*.cfc --verbose",
+        "format":"cfformat run models/**/*.cfc,tests/specs/**/*.cfc --overwrite",
+        "format:check":"cfformat check models/**/*.cfc,tests/specs/**/*.cfc --verbose",
         "generateAPIDocs":"rm .tmp --recurse --force && docbox generate mapping=cbauth excludes=tests|ModuleConfig strategy-outputDir=.tmp/apidocs strategy-projectTitle=cbauth"
     },
     "ignore":[
