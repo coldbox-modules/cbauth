@@ -1,8 +1,12 @@
 component {
 
     this.title = "cbauth";
+    // Don't map models, we will do it manually
     this.autoMapModels = false;
+    // Module Dependencies
     this.dependencies = [ "cbstorages" ];
+    // Helpers automatically loaded
+	this.applicationHelper 	= [ "helpers/Mixins.cfm" ];
 
     function configure() {
         settings = {
@@ -11,8 +15,16 @@ component {
             requestStorage = "RequestStorage@cbstorages"
         };
 
+        // Custom Events
         interceptorSettings = {
-            customInterceptionPoints = "preAuthentication,postAuthentication"
+            customInterceptionPoints = [
+                "preAuthentication",
+                "postAuthentication",
+                "preLogout",
+                "postLogout",
+                "preLogin",
+                "postLogin"
+            ]
         };
     }
 
@@ -20,22 +32,9 @@ component {
         binder.map( "SessionStorage@cbauth" ).toDSL( settings.sessionStorage );
         binder.map( "RequestStorage@cbauth" ).toDSL( settings.requestStorage );
         binder.map( "AuthenticationService@cbauth" ).to( "#moduleMapping#.models.AuthenticationService" );
-
-        var helpers = controller.getSetting( "applicationHelper" );
-        arrayAppend(
-            helpers,
-            "#moduleMapping#/helpers/AuthenticationServiceHelpers.cfm"
-        );
-        controller.setSetting( "applicationHelper", helpers );
     }
 
     function onUnload() {
-        controller.setSetting(
-            "applicationHelper",
-            arrayFilter( controller.getSetting( "applicationHelper" ), function( helper ) {
-                return helper != "#moduleMapping#/helpers/AuthenticationServiceHelpers.cfm";
-            } )
-        );
     }
 
 }

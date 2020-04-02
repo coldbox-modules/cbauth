@@ -4,14 +4,15 @@
     "location":"forgeboxStorage",
     "author":[
         "Eric Peterson",
-        "Mike Burt"
+        "Mike Burt",
+        "Luis Majano"
     ],
     "repository":{
         "type":"git",
         "URL":"https://github.com/coldbox-modules/cbauth"
     },
     "slug":"cbauth",
-    "shortDescription":"Helpers for authentication in ColdBox",
+    "shortDescription":"Authentication services for ColdBox Applications.",
     "type":"modules",
     "keywords":[
         "authentication",
@@ -34,10 +35,16 @@
         "testbox":"testbox/",
         "cbstorages":"modules/cbstorages/"
     },
-    "scripts":{},
+    "scripts":{
+        "format": "cfformat run models/**/*.cfc,tests/specs/**/*.cfc --overwrite",
+        "format:check": "cfformat check models/**/*.cfc,tests/specs/**/*.cfc --verbose",
+        "generateAPIDocs":"rm .tmp --recurse --force && docbox generate mapping=cbauth excludes=tests|ModuleConfig strategy-outputDir=.tmp/apidocs strategy-projectTitle=cbauth"
+    },
     "ignore":[
         "**/.*",
         "test",
-        "tests"
+        "tests",
+        "docs/**/*.*",
+        "server.json"
     ]
 }
