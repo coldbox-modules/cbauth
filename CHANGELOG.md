@@ -1,3 +1,12 @@
+# v5.0.1
+## 24 Apr 2020 — 03:47:00 UTC
+
+### other
+
++ __\*:__ fix: Allow any dsl to be the user service
+ ([7cfb533](https://github.com/coldbox-modules/cbauth/commit/7cfb533f9b06f924961bd5f900e843801b2506e8))
+
+
 # v5.0.0
 ## 02 Apr 2020 — 22:10:08 UTC
 
