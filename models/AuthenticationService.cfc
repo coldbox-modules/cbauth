@@ -180,7 +180,7 @@ component singleton {
 				);
 			}
 
-			variables.userService = variables.wirebox.getInstance( variables.userServiceClass );
+			variables.userService = variables.wirebox.getInstance( dsl = variables.userServiceClass );
 		}
 
 		return variables.userService;
