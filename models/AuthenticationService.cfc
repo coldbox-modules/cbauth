@@ -137,7 +137,16 @@ component singleton {
 	 */
 	public any function getUser() {
 		if ( !variables.requestStorage.exists( variables.USER_KEY ) ) {
-			var userBean = getUserService().retrieveUserById( getUserId() );
+			try {
+				var userBean = getUserService().retrieveUserById( getUserId() );
+			} catch ( any e ) {
+				// if there was a problem retrieving the user,
+				// remove the key from the sessionStorage so we
+				// don't keep trying to log in the user.
+				variables.sessionStorage.delete( variables.USER_ID_KEY );
+				rethrow;
+			}
+
 			variables.requestStorage.set( variables.USER_KEY, userBean );
 		}
 

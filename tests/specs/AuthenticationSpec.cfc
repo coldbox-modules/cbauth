@@ -383,6 +383,7 @@ component extends="testbox.system.BaseSpec" {
 	function setUpSessionStorage() {
 		variables.sessionStorageMock = getMockBox().createStub();
 		sessionStorageMock.$( "set" );
+		sessionStorageMock.$( "delete" );
 	}
 
 	function setUpRequestStorage() {
