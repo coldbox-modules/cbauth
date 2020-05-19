@@ -1,3 +1,12 @@
+# v5.0.2
+## 19 May 2020 — 05:46:52 UTC
+
+### other
+
++ __\*:__ fix: Removing session key if there is a problem retrieving the user
+ ([799211b](https://github.com/coldbox-modules/cbauth/commit/799211b1a0b627c0f08bc4aa6fc3b47ab4223df8))
+
+
 # v5.0.1
 ## 24 Apr 2020 — 03:47:00 UTC
 
