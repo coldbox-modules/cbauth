@@ -1,3 +1,12 @@
+# v5.0.3
+## 25 Aug 2020 — 16:56:30 UTC
+
+### fix
+
++ __CI:__ Ensure coldbox is not added as a dependency from CI
+ ([132adc4](https://github.com/coldbox-modules/cbauth/commit/132adc474e914fb748306f300dd09f1c38875741))
+
+
 # v5.0.2
 ## 19 May 2020 — 05:46:52 UTC
 
