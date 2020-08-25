@@ -26,11 +26,11 @@
         }
     ],
     "dependencies":{
-        "cbstorages":"^2.0.0",
-        "coldbox":"stable"
+        "cbstorages":"^2.0.0"
     },
     "devDependencies":{
-        "testbox":"^3.0.0"
+        "testbox":"^3.0.0",
+        "coldbox":"stable"
     },
     "installPaths":{
         "testbox":"testbox/",
