@@ -1,4 +1,4 @@
-interface name="RequestStorageInterface" {
+interface displayName="RequestStorageInterface" {
 
 	public any function getVar( required string name, any defaultValue );
 	public void function setVar( required string name, required any value );
