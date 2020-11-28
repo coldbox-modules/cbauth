@@ -1,4 +1,4 @@
-interface name="SessionStorageInterface" {
+interface displayName="SessionStorageInterface" {
 
 	public any function getVar( required string name, any defaultValue );
 	public void function setVar( required string name, required any value );
