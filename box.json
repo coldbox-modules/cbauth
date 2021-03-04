@@ -29,13 +29,11 @@
         "cbstorages":"^2.0.0"
     },
     "devDependencies":{
-        "testbox":"^3.0.0",
-        "coldbox":"stable"
+        "testbox":"^3.0.0"
     },
     "installPaths":{
         "testbox":"testbox/",
-        "cbstorages":"modules/cbstorages/",
-        "coldbox":"coldbox/"
+        "cbstorages":"modules/cbstorages/"
     },
     "scripts":{
         "format":"cfformat run models/**/*.cfc,tests/specs/**/*.cfc --overwrite",
