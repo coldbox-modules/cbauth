@@ -64,9 +64,19 @@ This method returns the passed in `user` object.
 
 | name | type | required | default | description |
 | --- | --- | --- | --- | --- |
-| No arguments |
+| quiet | boolean | false | false | Skips firing interception events if `true` |
 
 Logs a user out of system.  This method can be called regardless of if there is currently a logged in user.
+This method fires two interception events: `preLogout` and `postLogout`.  The `preLogout` event recieves the currently logged-in user, if there is one.
+
+### `quietLogout`
+
+| name | type | required | default | description |
+| --- | --- | --- | --- | --- |
+| No arguments |
+
+Logs a user out of system without firing interception events.
+Useful in testing situations where the "logged in" user may no longer exist in your database.
 
 ### `authenticate`
 
