@@ -337,13 +337,13 @@ component extends="testbox.system.BaseSpec" {
 						);
 					} );
 
-                    it( "announces a preLogout and postLogout interception point", function() {
-                        sessionStorageMock.$( "delete", true ).$( "exists", false );
-                        requestStorageMock.$( "delete", true );
+					it( "announces a preLogout and postLogout interception point", function() {
+						sessionStorageMock.$( "delete", true ).$( "exists", false );
+						requestStorageMock.$( "delete", true );
 
-                        auth.logout();
+						auth.logout();
 
-                        var processStateCallLog = interceptorServiceMock.$callLog().processState;
+						var processStateCallLog = interceptorServiceMock.$callLog().processState;
 
 						expect( processStateCallLog ).toHaveLength( 2, "Two events should have been announced" );
 						expect( processStateCallLog[ 1 ][ 1 ] ).toBe(
@@ -354,16 +354,16 @@ component extends="testbox.system.BaseSpec" {
 							"postLogout",
 							"[postLogout] should have been announced."
 						);
-                    } );
+					} );
 
-                    it( "the current user is provided to the preLogout interception point", function() {
-                        sessionStorageMock.$( "delete", true ).$( "exists", true );
-                        requestStorageMock.$( "delete", true );
-                        auth.$( "getUser", userMock );
+					it( "the current user is provided to the preLogout interception point", function() {
+						sessionStorageMock.$( "delete", true ).$( "exists", true );
+						requestStorageMock.$( "delete", true );
+						auth.$( "getUser", userMock );
 
-                        auth.logout();
+						auth.logout();
 
-                        var processStateCallLog = interceptorServiceMock.$callLog().processState;
+						var processStateCallLog = interceptorServiceMock.$callLog().processState;
 
 						expect( processStateCallLog ).toHaveLength( 2, "Two events should have been announced" );
 						expect( processStateCallLog[ 1 ][ 1 ] ).toBe(
@@ -371,19 +371,19 @@ component extends="testbox.system.BaseSpec" {
 							"[preLogout] should have been announced."
 						);
 						expect( processStateCallLog[ 1 ][ 2 ].user ).toBe( userMock );
-                    } );
+					} );
 
-                    it( "skips interceptor events when using quietLogout", function() {
-                        sessionStorageMock.$( "delete", true ).$( "exists", false );
-                        requestStorageMock.$( "delete", true );
-                        auth.$( "getUser", userMock );
+					it( "skips interceptor events when using quietLogout", function() {
+						sessionStorageMock.$( "delete", true ).$( "exists", false );
+						requestStorageMock.$( "delete", true );
+						auth.$( "getUser", userMock );
 
-                        auth.quietLogout();
+						auth.quietLogout();
 
-                        var processStateCallLog = interceptorServiceMock.$callLog().processState;
+						var processStateCallLog = interceptorServiceMock.$callLog().processState;
 
 						expect( processStateCallLog ).toHaveLength( 0, "No events should have been announced" );
-                    } );
+					} );
 				} );
 
 				it( "returns the user if the user was successfully authenticated", function() {
