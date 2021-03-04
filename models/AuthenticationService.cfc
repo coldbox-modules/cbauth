@@ -30,20 +30,33 @@ component singleton {
 	/**
 	 * Logout a user
 	 */
-	public void function logout() {
+	public void function logout( boolean quiet = false ) {
 		// Annouce pre logout with or without user
-		variables.interceptorService.processState(
-			"preLogout",
-			{ user: isLoggedIn() ? getUser() : javacast( "null", "" ) }
-		);
+        if ( !arguments.quiet ) {
+            variables.interceptorService.processState(
+                "preLogout",
+                { user: isLoggedIn() ? getUser() : javacast( "null", "" ) }
+            );
+        }
 
 		// cleanup
 		variables.sessionStorage.delete( variables.USER_ID_KEY );
 		variables.requestStorage.delete( variables.USER_KEY );
 
 		// Announce post logout
-		variables.interceptorService.processState( "postLogout", {} );
+        if ( !arguments.quiet ) {
+            variables.interceptorService.processState( "postLogout", {} );
+        }
 	}
+
+    /**
+	 * Logout a user without raising interceptor events.
+     * Useful when testing "logged in" user no longer exists.
+	 */
+    public void function quietLogout() {
+        arguments.quiet = true;
+        logout( argumentCollection = arguments );
+    }
 
 	/**
 	 * Login a user into our persistent scopes
