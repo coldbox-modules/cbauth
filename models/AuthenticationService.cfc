@@ -103,6 +103,13 @@ component singleton {
 		);
 
 		if ( !getUserService().isValidCredentials( arguments.username, arguments.password ) ) {
+			variables.interceptorService.processState(
+				"onInvalidCredentials",
+				{
+					"username": arguments.username,
+					"password": arguments.password
+				}
+			);
 			throw( type = "InvalidCredentials", message = "Incorrect Credentials Entered" );
 		}
 

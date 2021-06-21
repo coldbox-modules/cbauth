@@ -307,7 +307,7 @@ component extends="testbox.system.BaseSpec" {
 					} );
 				} );
 
-				describe( "pre and post interception points", function() {
+				describe( "interception points", function() {
 					it( "announces a preAuthentication interception point", function() {
 						var validUsername   = "john.doe@example.com";
 						var correctPassword = "pass1234";
@@ -335,6 +335,33 @@ component extends="testbox.system.BaseSpec" {
 							"postLogin",
 							"[postLogin] should have been announced."
 						);
+					} );
+
+					it( "announces an onInvalidCredentials interception point", function() {
+						var validUsername     = "john.doe@example.com";
+						var incorrectPassword = "incorrectPassword";
+
+						userServiceMock.$( "isValidCredentials", false );
+
+						expect( function() {
+							auth.authenticate( validUsername, incorrectPassword );
+						} ).toThrow( type = "InvalidCredentials" );
+
+						var processStateCallLog = interceptorServiceMock.$callLog().processState;
+
+						expect( processStateCallLog ).toHaveLength( 2 );
+						expect( processStateCallLog[ 1 ][ 1 ] ).toBe(
+							"preAuthentication",
+							"[preAuthentication] should have been announced."
+						);
+						expect( processStateCallLog[ 2 ][ 1 ] ).toBe(
+							"onInvalidCredentials",
+							"[onInvalidCredentials] should have been announced."
+						);
+						expect( processStateCallLog[ 2 ][ 2 ] ).toBe( {
+							"username": validUsername,
+							"password": incorrectPassword
+						} );
 					} );
 
 					it( "announces a preLogout and postLogout interception point", function() {
