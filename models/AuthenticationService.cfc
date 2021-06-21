@@ -118,9 +118,11 @@ component singleton {
 		variables.interceptorService.processState(
 			"postAuthentication",
 			{
-				user          : user,
-				sessionStorage: variables.sessionStorage,
-				requestStorage: variables.requestStorage
+				"user"          : user,
+				"username"      : arguments.username,
+				"password"      : arguments.password,
+				"sessionStorage": variables.sessionStorage,
+				"requestStorage": variables.requestStorage
 			}
 		);
 
