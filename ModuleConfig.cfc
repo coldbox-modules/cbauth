@@ -19,6 +19,7 @@ component {
         interceptorSettings = {
             customInterceptionPoints = [
                 "preAuthentication",
+                "onInvalidCredentials",
                 "postAuthentication",
                 "preLogout",
                 "postLogout",
