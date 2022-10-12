@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        cfengine: ["lucee@5", "adobe@2016", "adobe@2018"]
+        cfengine: ["lucee@5", "adobe@2018", "adobe@2021" ]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -27,17 +27,22 @@ jobs:
       - name: Setup Java JDK
         uses: actions/setup-java@v1.4.3
         with:
-          java-version: 11 
+          java-version: 11
 
       - name: Set Up CommandBox
-        uses: elpete/setup-commandbox@v1.0.0
-      
+        uses: Ortus-Solutions/setup-commandbox@main
+
       - name: Install dependencies
         run: |
           box install
-      
+
       - name: Start server
-        run: box server start cfengine=${{ matrix.cfengine }} --noSaveSettings
+        run: |
+          box server start cfengine=${{ matrix.cfengine }} --noSaveSettings
+          # Install Adobe 2021 cfpm modules
+          if [[ "${{ matrix.cfengine }}" == "adobe@2021" ]] ; then
+            box run-script install:2021
+          fi
 
       - name: Run TestBox Tests
         run: box testbox run
@@ -52,14 +57,14 @@ jobs:
       - name: Setup Java JDK
         uses: actions/setup-java@v1.4.3
         with:
-          java-version: 11 
+          java-version: 11
 
       - name: Set Up CommandBox
-        uses: elpete/setup-commandbox@v1.0.0
-      
+        uses: Ortus-Solutions/setup-commandbox@main
+
       - name: Install CFFormat
         run: box install commandbox-cfformat
-      
+
       - name: Run CFFormat
         run: box run-script format
 

@@ -26,10 +26,10 @@
         }
     ],
     "dependencies":{
-        "cbstorages":"^2.0.0"
+        "cbstorages":"^3.0.0"
     },
     "devDependencies":{
-        "testbox":"^3.0.0"
+        "testbox":"*"
     },
     "installPaths":{
         "testbox":"testbox/",
@@ -38,7 +38,10 @@
     "scripts":{
         "format":"cfformat run models/**/*.cfc,tests/specs/**/*.cfc --overwrite",
         "format:check":"cfformat check models/**/*.cfc,tests/specs/**/*.cfc --verbose",
-        "generateAPIDocs":"rm .tmp --recurse --force && docbox generate mapping=cbauth excludes=tests|ModuleConfig strategy-outputDir=.tmp/apidocs strategy-projectTitle=cbauth"
+        "generateAPIDocs":"rm .tmp --recurse --force && docbox generate mapping=cbauth excludes=tests|ModuleConfig strategy-outputDir=.tmp/apidocs strategy-projectTitle=cbauth",
+		"cfpm":"echo '\".engine/adobe2021/WEB-INF/cfusion/bin/cfpm.sh\"' | run",
+        "cfpm:install":"echo '\".engine/adobe2021/WEB-INF/cfusion/bin/cfpm.sh\" install ${1}' | run",
+        "install:2021":"run-script cfpm:install zip:2021.0.02.328618,debugger:2021.0.02.328618"
     },
     "ignore":[
         "**/.*",

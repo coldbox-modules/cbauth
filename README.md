@@ -2,10 +2,10 @@
 
 Authentication services for ColdBox Applications.
 
-## Requirements 
+## Requirements
 
 - Lucee 5+
-- Adobe ColdFusion 2016+
+- Adobe ColdFusion 2018+
 
 ## Installation
 
