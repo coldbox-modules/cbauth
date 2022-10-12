@@ -1,4 +1,5 @@
 {
+	"name":"cbauth",
     "app":{
         "cfengine":"adobe@2018"
     },
