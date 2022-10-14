@@ -29,7 +29,7 @@
         "cbstorages":"^3.0.0"
     },
     "devDependencies":{
-        "testbox":"*"
+        "testbox":"^4"
     },
     "installPaths":{
         "testbox":"testbox/",
@@ -39,7 +39,7 @@
         "format":"cfformat run models/**/*.cfc,tests/specs/**/*.cfc --overwrite",
         "format:check":"cfformat check models/**/*.cfc,tests/specs/**/*.cfc --verbose",
         "generateAPIDocs":"rm .tmp --recurse --force && docbox generate mapping=cbauth excludes=tests|ModuleConfig strategy-outputDir=.tmp/apidocs strategy-projectTitle=cbauth",
-        "install:2021":"cfpm install zip:2021.0.02.328618,debugger:2021.0.02.328618"
+        "install:2021":"cfpm install zip,debugger"
     },
     "ignore":[
         "**/.*",
