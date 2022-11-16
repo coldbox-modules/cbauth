@@ -327,10 +327,7 @@ component extends="testbox.system.BaseSpec" {
 							"postAuthentication",
 							"[postAuthentication] should have been announced."
 						);
-						expect( announceCallLog[ 3 ][ 1 ] ).toBe(
-							"preLogin",
-							"[preLogin] should have been announced."
-						);
+						expect( announceCallLog[ 3 ][ 1 ] ).toBe( "preLogin", "[preLogin] should have been announced." );
 						expect( announceCallLog[ 4 ][ 1 ] ).toBe(
 							"postLogin",
 							"[postLogin] should have been announced."
