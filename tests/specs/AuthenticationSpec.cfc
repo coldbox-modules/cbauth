@@ -316,22 +316,22 @@ component extends="testbox.system.BaseSpec" {
 
 						auth.authenticate( validUsername, correctPassword );
 
-						var processStateCallLog = interceptorServiceMock.$callLog().processState;
+						var announceCallLog = interceptorServiceMock.$callLog().announce;
 
-						expect( processStateCallLog ).toHaveLength( 4, "Four events should have been announced" );
-						expect( processStateCallLog[ 1 ][ 1 ] ).toBe(
+						expect( announceCallLog ).toHaveLength( 4, "Four events should have been announced" );
+						expect( announceCallLog[ 1 ][ 1 ] ).toBe(
 							"preAuthentication",
 							"[preAuthentication] should have been announced."
 						);
-						expect( processStateCallLog[ 2 ][ 1 ] ).toBe(
+						expect( announceCallLog[ 2 ][ 1 ] ).toBe(
 							"postAuthentication",
 							"[postAuthentication] should have been announced."
 						);
-						expect( processStateCallLog[ 3 ][ 1 ] ).toBe(
+						expect( announceCallLog[ 3 ][ 1 ] ).toBe(
 							"preLogin",
 							"[preLogin] should have been announced."
 						);
-						expect( processStateCallLog[ 4 ][ 1 ] ).toBe(
+						expect( announceCallLog[ 4 ][ 1 ] ).toBe(
 							"postLogin",
 							"[postLogin] should have been announced."
 						);
@@ -347,18 +347,18 @@ component extends="testbox.system.BaseSpec" {
 							auth.authenticate( validUsername, incorrectPassword );
 						} ).toThrow( type = "InvalidCredentials" );
 
-						var processStateCallLog = interceptorServiceMock.$callLog().processState;
+						var announceCallLog = interceptorServiceMock.$callLog().announce;
 
-						expect( processStateCallLog ).toHaveLength( 2 );
-						expect( processStateCallLog[ 1 ][ 1 ] ).toBe(
+						expect( announceCallLog ).toHaveLength( 2 );
+						expect( announceCallLog[ 1 ][ 1 ] ).toBe(
 							"preAuthentication",
 							"[preAuthentication] should have been announced."
 						);
-						expect( processStateCallLog[ 2 ][ 1 ] ).toBe(
+						expect( announceCallLog[ 2 ][ 1 ] ).toBe(
 							"onInvalidCredentials",
 							"[onInvalidCredentials] should have been announced."
 						);
-						expect( processStateCallLog[ 2 ][ 2 ] ).toBe( {
+						expect( announceCallLog[ 2 ][ 2 ] ).toBe( {
 							"username": validUsername,
 							"password": incorrectPassword
 						} );
@@ -370,14 +370,14 @@ component extends="testbox.system.BaseSpec" {
 
 						auth.logout();
 
-						var processStateCallLog = interceptorServiceMock.$callLog().processState;
+						var announceCallLog = interceptorServiceMock.$callLog().announce;
 
-						expect( processStateCallLog ).toHaveLength( 2, "Two events should have been announced" );
-						expect( processStateCallLog[ 1 ][ 1 ] ).toBe(
+						expect( announceCallLog ).toHaveLength( 2, "Two events should have been announced" );
+						expect( announceCallLog[ 1 ][ 1 ] ).toBe(
 							"preLogout",
 							"[preLogout] should have been announced."
 						);
-						expect( processStateCallLog[ 2 ][ 1 ] ).toBe(
+						expect( announceCallLog[ 2 ][ 1 ] ).toBe(
 							"postLogout",
 							"[postLogout] should have been announced."
 						);
@@ -390,14 +390,14 @@ component extends="testbox.system.BaseSpec" {
 
 						auth.logout();
 
-						var processStateCallLog = interceptorServiceMock.$callLog().processState;
+						var announceCallLog = interceptorServiceMock.$callLog().announce;
 
-						expect( processStateCallLog ).toHaveLength( 2, "Two events should have been announced" );
-						expect( processStateCallLog[ 1 ][ 1 ] ).toBe(
+						expect( announceCallLog ).toHaveLength( 2, "Two events should have been announced" );
+						expect( announceCallLog[ 1 ][ 1 ] ).toBe(
 							"preLogout",
 							"[preLogout] should have been announced."
 						);
-						expect( processStateCallLog[ 1 ][ 2 ].user ).toBe( userMock );
+						expect( announceCallLog[ 1 ][ 2 ].user ).toBe( userMock );
 					} );
 
 					it( "skips interceptor events when using quietLogout", function() {
@@ -407,9 +407,9 @@ component extends="testbox.system.BaseSpec" {
 
 						auth.quietLogout();
 
-						var processStateCallLog = interceptorServiceMock.$callLog().processState;
+						var announceCallLog = interceptorServiceMock.$callLog().announce;
 
-						expect( processStateCallLog ).toHaveLength( 0, "No events should have been announced" );
+						expect( announceCallLog ).toHaveLength( 0, "No events should have been announced" );
 					} );
 				} );
 
@@ -446,7 +446,7 @@ component extends="testbox.system.BaseSpec" {
 
 	function setUpInterceptorService() {
 		variables.interceptorServiceMock = getMockBox().createStub();
-		interceptorServiceMock.$( "processState" );
+		interceptorServiceMock.$( "announce" );
 	}
 
 	function setUpUser() {
