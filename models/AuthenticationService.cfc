@@ -33,7 +33,7 @@ component singleton {
 	public void function logout( boolean quiet = false ) {
 		// Annouce pre logout with or without user
 		if ( !arguments.quiet ) {
-			variables.interceptorService.processState(
+			variables.interceptorService.announce(
 				"preLogout",
 				{ user: isLoggedIn() ? getUser() : javacast( "null", "" ) }
 			);
@@ -45,7 +45,7 @@ component singleton {
 
 		// Announce post logout
 		if ( !arguments.quiet ) {
-			variables.interceptorService.processState( "postLogout", {} );
+			variables.interceptorService.announce( "postLogout", {} );
 		}
 	}
 
@@ -66,12 +66,12 @@ component singleton {
 	 * @return The same user object so you can do functional goodness
 	 */
 	public any function login( required user ) {
-		variables.interceptorService.processState( "preLogin", { user: arguments.user } );
+		variables.interceptorService.announce( "preLogin", { user: arguments.user } );
 
 		variables.sessionStorage.set( variables.USER_ID_KEY, arguments.user.getId() );
 		variables.requestStorage.set( variables.USER_KEY, arguments.user );
 
-		variables.interceptorService.processState(
+		variables.interceptorService.announce(
 			"postLogin",
 			{
 				user          : arguments.user,
@@ -94,7 +94,7 @@ component singleton {
 	 * @return User : The logged in user object
 	 */
 	public any function authenticate( required string username, required string password ) {
-		variables.interceptorService.processState(
+		variables.interceptorService.announce(
 			"preAuthentication",
 			{
 				"username": arguments.username,
@@ -103,7 +103,7 @@ component singleton {
 		);
 
 		if ( !getUserService().isValidCredentials( arguments.username, arguments.password ) ) {
-			variables.interceptorService.processState(
+			variables.interceptorService.announce(
 				"onInvalidCredentials",
 				{
 					"username": arguments.username,
@@ -115,7 +115,7 @@ component singleton {
 
 		var user = getUserService().retrieveUserByUsername( arguments.username );
 
-		variables.interceptorService.processState(
+		variables.interceptorService.announce(
 			"postAuthentication",
 			{
 				"user"          : user,
