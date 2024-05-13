@@ -1,3 +1,12 @@
+# v6.1.0
+## 13 May 2024 — 16:34:33 UTC
+
+### feat
+
++ __AuthenticationService:__ Make `getUserService` publically available
+ ([4f83978](https://github.com/coldbox-modules/cbauth/commit/4f839786602e2841c8d6ba43195acda9f965488e))
+
+
 # v5.0.3
 ## 25 Aug 2020 — 16:56:30 UTC
 
