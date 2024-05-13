@@ -202,7 +202,7 @@ component singleton {
 	 *
 	 * @throws IncompleteConfiguration
 	 */
-	private any function getUserService() {
+	public any function getUserService() {
 		if ( !structKeyExists( variables, "userService" ) ) {
 			if ( variables.userServiceClass == "" ) {
 				throw(
