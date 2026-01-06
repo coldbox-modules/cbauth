@@ -1,7 +1,7 @@
 /**
  * Authentication services for your application
  */
-component singleton {
+component singleton threadsafe {
 
 	/* *********************************************************************
 	 **						DI
